@@ -102,6 +102,16 @@
                 </tbody>
             </table>
         </div>
+
+        <h2>Delete Student</h2>
+        <input type="text" id="delete-student-id" placeholder="Enter Student ID">
+        <button onclick="deleteStudent(document.getElementById('delete-student-id').value)">Delete</button>
+
+        <h2>Update Student</h2>
+        <input type="text" id="update-student-id" placeholder="Enter Student ID">
+        <input type="text" id="update-student-data" placeholder="Enter New Data">
+        <button onclick="updateStudent(document.getElementById('update-student-id').value, document.getElementById('update-student-data').value)">Update</button>
+
     </div>
 
     <script src="scripts.js"></script>

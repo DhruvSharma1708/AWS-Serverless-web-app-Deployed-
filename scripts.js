@@ -16,12 +16,17 @@ document.getElementById("savestudent").onclick = function(){
         contentType: 'application/json; charset=utf-8',
         success: function (response) {
             document.getElementById("studentSaved").innerHTML = "Student Data Saved!";
+            // Clear the input fields
+            $('#studentid').val('');
+            $('#name').val('');
+            $('#class').val('');
+            $('#age').val('');
         },
-        error: function () {
-            alert("Error saving student data.");
+        error: function (xhr, status, error) {
+            alert("Error saving student data: " + error);
         }
     });
-}
+};
 
 // AJAX GET request to retrieve all students
 document.getElementById("getstudents").onclick = function(){  
@@ -40,8 +45,54 @@ document.getElementById("getstudents").onclick = function(){
                     </tr>");
             });
         },
-        error: function () {
-            alert("Error retrieving student data.");
+        error: function (xhr, status, error) {
+            alert("Error retrieving student data: " + error);
         }
     });
-}
+};
+
+// AJAX DELETE request to delete a student
+document.getElementById("deletestudent").onclick = function(){
+    var studentId = $('#studentid').val();
+    $.ajax({
+        url: API_ENDPOINT,
+        type: 'DELETE',
+        data: JSON.stringify({ "studentid": studentId }),
+        contentType: 'application/json; charset=utf-8',
+        success: function (response) {
+            document.getElementById("studentDeleted").innerHTML = "Student Data Deleted!";
+            // Clear the input field
+            $('#studentid').val('');
+        },
+        error: function (xhr, status, error) {
+            alert("Error deleting student data: " + error);
+        }
+    });
+};
+
+// AJAX PUT request to update a student
+document.getElementById("updatestudent").onclick = function(){
+    var inputData = {
+        "studentid": $('#studentid').val(),
+        "name": $('#name').val(),
+        "class": $('#class').val(),
+        "age": $('#age').val()
+    };
+    $.ajax({
+        url: API_ENDPOINT,
+        type: 'PUT',
+        data: JSON.stringify(inputData),
+        contentType: 'application/json; charset=utf-8',
+        success: function (response) {
+            document.getElementById("studentUpdated").innerHTML = "Student Data Updated!";
+            // Clear the input fields
+            $('#studentid').val('');
+            $('#name').val('');
+            $('#class').val('');
+            $('#age').val('');
+        },
+        error: function (xhr, status, error) {
+            alert("Error updating student data: " + error);
+        }
+    });
+};
